@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-
+#include "../inc/FIFO.h"
 using namespace std;
+
  
 int main(int argc, char** argv)
 {
@@ -10,11 +11,14 @@ int main(int argc, char** argv)
 		flag = 0;
 	}
     	else{
-    		if(string(argv[1]) == "-r"){ // checking if command is -r to read specific file
-    			cout << "command read\n";
-    		}
-    		else if(string(argv[1]) == "-ls"){ // checking if command is -ls to read specific file
-    			cout << "command ls\n";
+    		if(string(argv[1]) == "-r" || string(argv[1]) == "-ls"){ // checking if command is -r to read specific file or -ls to list files in directory
+    			cout << "right command\n";
+    			int fd = FIFO_init();   // file discreptor to store file of fifo
+        		if(fd == -1){    // if fd = -1 initialization fild else it has file decriptor 
+        			cout << "initialization failed\n";
+        			return 0;
+        		}
+        		FIFO_send(fd, argv);
     		}
     		else{
     			flag = 0; // if enters here that means that command is not -r or -ls
@@ -27,3 +31,6 @@ int main(int argc, char** argv)
     	
     	return 0;
 }
+
+
+

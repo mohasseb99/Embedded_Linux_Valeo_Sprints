@@ -13,8 +13,3 @@ message(${CMAKE_BINARY_DIR})  ## to print path of build
 
 add_subdirectory(src)  
 
-##add_library(WriteInFile STATIC include/WriteInFile.h library/WriteInFile.cpp)
-
-##add_executable(requester src/requester.cpp)
-
-##target_link_libraries(program WriteInFile)
