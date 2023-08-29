@@ -8,7 +8,10 @@
 // to check if file of the given path existed or not
 bool fileExists(char* filePath) {
     struct stat info;
-    return (stat(filePath, &info) == 0);
+    if (stat(filePath, &info) != 0){
+    	return false;
+    }
+    return (info.st_mode & S_IFDIR) == 0; 
 }
 
 // to check if given path is directory and existed or not
