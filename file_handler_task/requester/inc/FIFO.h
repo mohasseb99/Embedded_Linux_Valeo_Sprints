@@ -6,6 +6,6 @@
 
 #define FIFO_PATH "../../../FIFO"  // to make it in build directory 
 
-int FIFO_init();
-void FIFO_send(int fd, char** argv);
+void FIFO_init(int& fifo_fd);
 
+void FIFO_send(int& fifo_fd, char** argv);

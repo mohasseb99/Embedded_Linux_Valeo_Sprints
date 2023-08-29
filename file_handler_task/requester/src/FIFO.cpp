@@ -1,25 +1,28 @@
 #include "../inc/FIFO.h"
 #include <iostream>
 #include <cstring>
+#include "../inc/logger.h"
 
 
 using namespace std;
 
 
-int FIFO_init(){
+void FIFO_init(int& fifo_fd){
 	int flags;
-	int fd;
-	char * myfifo = FIFO_PATH; 
-	fd = open(myfifo, O_WRONLY);   // Open FIFO for write only
-	if(fd == -1){   // if fd is equal to -1 that means we can not open file
-		cout << "can not open fifo\n";
-		return -1;
+	fifo_fd = open(FIFO_PATH, O_WRONLY);   // Open FIFO for write only
+	if(fifo_fd == -1){   // if fd is equal to -1 that means we can not open file
+		log_msg("Fatal", "fatal: can not open FIFO");
+		exit(1);
 	} 
-        return fd;
+	log_msg("info", "info: FIFO is opened");
 }
 
-void FIFO_send(int fd, char** argv){
-	write(fd, argv[1], strlen(argv[1])+1);
-        write(fd, argv[2], strlen(argv[2])+1);
-        close(fd);
+void FIFO_send(int& fifo_fd, char** argv){
+	write(fifo_fd, argv[1], strlen(argv[1])+1);
+	log_msg("trace", "trace: sent first argument");
+	for(int i = 0; i < 60000; i++);    // make delaying between writes
+        write(fifo_fd, argv[2], strlen(argv[2])+1);
+        log_msg("trace", "trace: sent second argument");
+        close(fifo_fd);
+        log_msg("info", "info: FIFO is closed");
 }

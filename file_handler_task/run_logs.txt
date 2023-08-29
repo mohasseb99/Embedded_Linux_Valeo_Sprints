@@ -1,0 +1,65 @@
+Trace: Command is correct
+info: FIFO file is already exist
+info: shared memory file created successfully
+Trace: Command is correct r
+Trace: Command is correct /home/mahmoud/Desktop/valeo_Embedded_Linux/file_handler_task/requester/inc/FIF
+error: File needed to be accessed is not existed
+Trace: user entered correct number of arguments and correct command
+info: shared memory file created successfully
+trace: sent first argument
+trace: sent second argument
+info: FIFO is closed
+Trace: sending arguments using FIFO
+Trace: recieved from shared memory
+Trace: Command is correct
+info: FIFO file is already exist
+info: shared memory file created successfully
+Trace: Command is correct r
+Trace: Command is correct /home/mahmoud/Desktop/valeo_Embedded_Linux/file_handler_task/requester/inc/FIF
+error: File needed to be accessed is not existed
+Trace: user entered correct number of arguments and correct command
+info: FIFO is opened
+info: shared memory file created successfully
+trace: sent first argument
+trace: sent second argument
+info: FIFO is closed
+Trace: sending arguments using FIFO
+Trace: recieved from shared memory
+Trace: Command is correct r
+Trace: Command is correct /home/mahmoud/Desktop/valeo_Embedded_Linux/file_handler_task/requester/inc/FIFO.h
+info: File is exist
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+Trace: user entered correct number of arguments and correct command
+info: FIFO is opened
+info: shared memory file created successfully
+trace: sent first argument
+trace: sent second argument
+info: FIFO is closed
+Trace: sending arguments using FIFO
+Trace: recieved from shared memory
+Trace: Command is correct ls
+Trace: Command is correct /home/mahmoud/Desktop/valeo_Embedded_Linux/file_handler_task/requester/inc/
+info: directory is existed
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+trace: read from pipe
+Trace: user entered correct number of arguments and correct command
+info: FIFO is opened
+info: shared memory file created successfully
+trace: sent first argument
+trace: sent second argument
+info: FIFO is closed
+Trace: sending arguments using FIFO
+Trace: recieved from shared memory
