@@ -1,7 +1,6 @@
 #include "MessageQueue.h"
 #include <cstring>
 #include <cerrno>
-#include <iostream>
 
 MessageQueueSender::MessageQueueSender(const char* queueName) {
     mq = mq_open(queueName, O_WRONLY);    // here we only provide name of message queue as receiver should have created it before
