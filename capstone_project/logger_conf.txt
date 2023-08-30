@@ -1,0 +1,4 @@
+## Enter number of applications that will use logger daemon in the next line ex: 1, 2,.... you should not make new line
+1
+## Enter names of message queues file same as your application. every app in one line ex: /maths_logger . you should not make empty lines between names
+/maths_logger

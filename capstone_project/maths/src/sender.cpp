@@ -15,7 +15,8 @@ int main(int argc, char* argv[]) {
     try {
             // initialize sender message queue 
             MessageQueueSender sender(MQ_PATH);
-        
+            sender.SendMessage("1Trace: MathsApp: Message queue is opened from sender?");
+            	
 	    bool flag = 0;
 	    std::string operation; 
 	    double operand1, operand2;
@@ -25,39 +26,39 @@ int main(int argc, char* argv[]) {
 	    	if(std::string(argv[1]) == "add" || std::string(argv[1]) == "sub" || std::string(argv[1]) == "mul" || std::string(argv[1]) == "div")		
 	    	{
 	    	    if( isNumber(std::string(argv[2])) && isNumber(std::string(argv[3])) ){
-	    	    	sender.SendMessage("1MathsApp: Trace: user entered correct command?");  // we write number before message so logger can know which severity message is
+	    	    	sender.SendMessage("1Trace: MathsApp: user entered correct command?");  // we write number before message so logger can know which severity message is
 	    	    	operation = argv[1];
 	    	    	operand1 = std::stod(argv[2]);
 	    	    	operand2 = std::stod(argv[3]);
 	    	    	flag = 1;
 	    	    }
 	    	    else{
-	    	    	sender.SendMessage("5MathsApp: Error: user does not entered numbers only after operation?"); // we use ? as delimeter so the reciver can know the end of the message
+	    	    	sender.SendMessage("5Error: MathsApp: user does not entered numbers only after operation?"); // we use ? as delimeter so the reciver can know the end of the message
 	    	    	flag = 0;
 	    	    } 
 	    	}
 	    	else{
-	    	    sender.SendMessage("5MathsApp: Error: user entered wrong operation?");
+	    	    sender.SendMessage("5Error: MathsApp: user entered wrong operation?");
 	    	    flag = 0;
 	    	}
 	    }
 	    else if(argc == 2 && std::string(argv[1]) == "--help"){
-	        sender.SendMessage("1MathsApp: Trace: user entered help?");
+	        sender.SendMessage("1Trace: MathsApp: user entered help?");
 	    	flag = 0;
 	    }
 	    else{
-	    	sender.SendMessage("5MathsApp: Error: user entered wrong number of arguments?");
+	    	sender.SendMessage("5Error: MathsApp: user entered wrong number of arguments?");
 	    	flag = 0;
 	    }
 	    
 	    if (flag == 0) {
-	        sender.SendMessage("3MathsApp: Info: print help for user?");
+	        sender.SendMessage("3Info: MathsApp: print help for user?");
 		std::cout << "Usage: " << argv[0] << " <operation ex: add, sub, mul, div> <operand1> <operand2>\n";
 	    }
 	    else{
 	    	result = calculate(operation, operand1, operand2);
 	    	std::cout << "Result = " << result << "\n";
-	    	sender.SendMessage("3MathsApp: Info: print result for user?");
+	    	sender.SendMessage("3Info: MathsApp: print result for user?");
 	    }
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

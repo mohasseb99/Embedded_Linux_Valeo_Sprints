@@ -22,6 +22,7 @@ MessageQueueSender::~MessageQueueSender() noexcept {
     mq_close(mq);
 }
 
+MessageQueueReceiver::MessageQueueReceiver(){}
 MessageQueueReceiver::MessageQueueReceiver(char* queueName, bool isBlocking) {
     this->isBlocking = isBlocking;
     this->queueName = queueName;
@@ -79,6 +80,5 @@ void MessageQueueReceiver::cleanUpResources(){
 }
 
 MessageQueueReceiver::~MessageQueueReceiver() noexcept {
-    mq_close(mq);
-    mq_unlink(this->queueName);
+    
 }
