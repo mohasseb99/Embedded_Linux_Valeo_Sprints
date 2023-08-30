@@ -21,7 +21,8 @@ private:
 public:
     MessageQueueReceiver(char* queueName, bool isBlocking);
     void ReceiveMessageSync(char* received_message, size_t max_length, unsigned int* priority);
-    void ReceiveMessageAsync(char* received_message, size_t max_length, unsigned int* priority);
+    ssize_t ReceiveMessageAsync(char* received_message, size_t max_length, unsigned int* priority);
+    void cleanUpResources();
     ~MessageQueueReceiver() noexcept;
 };
 

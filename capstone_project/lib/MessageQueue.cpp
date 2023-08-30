@@ -39,7 +39,8 @@ MessageQueueReceiver::MessageQueueReceiver(char* queueName, bool isBlocking) {
 }
 
 // used if you declared message queue as non-blocking
-void MessageQueueReceiver::ReceiveMessageAsync(char* received_message, size_t max_length, unsigned int* priority) {
+// returns result to check if result = 0 we know that we recieved message
+ssize_t MessageQueueReceiver::ReceiveMessageAsync(char* received_message, size_t max_length, unsigned int* priority) {
     if(!isBlocking){
     	struct timespec timeout;
         // Set a timeout of 1 seconds
@@ -50,6 +51,7 @@ void MessageQueueReceiver::ReceiveMessageAsync(char* received_message, size_t ma
 	    int error_code = errno;
 	    throw std::runtime_error("mq_receive failed with error code: " + std::to_string(error_code));
 	}
+	return result; 
      }
      else{
      	throw std::runtime_error("incorrect function, you should use Sync function as you declared message queue is blocking");
@@ -69,6 +71,13 @@ void MessageQueueReceiver::ReceiveMessageSync(char* received_message, size_t max
      	throw std::runtime_error("incorrect function, you should use Async function as you declared message queue is non blocking");
      }
 }
+
+// used as we use while(1) so when we press ctrl+c resources will not be cleaned up
+void MessageQueueReceiver::cleanUpResources(){
+    mq_close(mq);
+    mq_unlink(this->queueName);
+}
+
 MessageQueueReceiver::~MessageQueueReceiver() noexcept {
     mq_close(mq);
     mq_unlink(this->queueName);
