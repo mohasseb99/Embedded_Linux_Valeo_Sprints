@@ -54,7 +54,10 @@ void cleanupAndExit(int signal) {
     	receivers[i].cleanUpResources();
     	log_msg("1Trace: Logger: close message queue for application?");
     }
-    close(serverSocket);
+    if(serverSocket != -1){
+    	close(serverSocket);
+    	exit(0);
+    }
     log_msg("1Trace: Logger: close server socket?");
     
     // Exit the program

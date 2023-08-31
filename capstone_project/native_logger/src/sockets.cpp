@@ -10,7 +10,7 @@ int socket_init(char* serverIP){
     int clientSocket = socket(AF_INET, SOCK_STREAM, 0); // Create a socket  AF_INET-->IPV4  SOCK_STREAM, 0 --> TCP 
 
     if (clientSocket == -1) {
-        std::cerr << "Error creating socket" << std::endl;
+        std::cerr << "Error creating socket" << errno << std::endl;
         exit(1);
     }
 
@@ -22,7 +22,7 @@ int socket_init(char* serverIP){
 
     // Connect to the server
     if (connect(clientSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) == -1) {
-        std::cerr << "Error connecting to server" << std::endl;
+        std::cerr << "Error connecting to server" << errno << std::endl;
         close(clientSocket);
         exit(1);
     }
