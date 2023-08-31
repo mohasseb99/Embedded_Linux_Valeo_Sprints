@@ -13,6 +13,8 @@ namespace logging = boost::log;
 namespace keywords = boost::log::keywords;
 
 static int getFileSize(const std::string &filename);
+static void close_logger();
+
 char* logger_file;
 
 void init_logger() {
@@ -21,10 +23,9 @@ void init_logger() {
 	std::time_t currentTime = std::time(nullptr);
 	char timestamp[20];
         std::strftime(timestamp, sizeof(timestamp), "%Y%m%d%H%M%S", std::localtime(&currentTime));
-	std::string filename = "../../" + std::string(timestamp) + ".txt";
+	std::string filename = "../../../log_" + std::string(timestamp) + ".txt";
 	logger_file = strdup(filename.c_str());
-	std::cout << logger_file << std::endl;
-	
+		
 	logging::add_file_log(
         	keywords::file_name = logger_file,
         	keywords::open_mode = (std::ios::out | std::ios::app) // Append to existing file
@@ -35,9 +36,15 @@ void init_logger() {
     	);
 }
 
+void close_logger() {
+    // Remove all sinks from the core to close logger
+    logging::core::get()->remove_all_sinks();
+}
+
 void log_msg(char* msg){
 	// I tried to make rotation file using boost but it gives me err I can not solve
 	if (getFileSize(std::string(logger_file)) >= 1024) {  // if size >= 1024 we create a new logger file
+		close_logger();
 		init_logger();
 	}
 	// I tried to make timestamp by boost but It gives me errors

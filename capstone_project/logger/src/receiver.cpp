@@ -4,18 +4,20 @@
 #include <fstream>
 #include "../inc/logger.h"
 #include <cstring>
+#include "../inc/sockets.h"
 
 #define CONFIG_PATH "../../../logger_conf.txt"
 MessageQueueReceiver receivers[10];  // we make array of receviers as the maximum number of apps can logger deal with
 int num_apps = 0;
+int serverSocket;
 
 void cleanupAndExit(int signal);
 int readConfigs();
-MessageQueueReceiver* receiver = nullptr;
 
 int main() {
     init_logger();
     readConfigs();
+    serverSocket = socket_init();
     try { 
     	// to capture ctrl+c signal and calling function before terminating
     	signal(SIGINT, cleanupAndExit);
@@ -28,14 +30,12 @@ int main() {
         int result = 1;
         while(1){
             for(int app = 0; app < num_apps; app++){
-        	result = receivers[app].ReceiveMessageAsync(received_message, sizeof(received_message), &priority);
+        	result = receivers[app].ReceiveMessageAsync(received_message, sizeof(received_message), &priority); // receiving is non-blocking
         	// checking if result bigger than zero that means we received a message so we print it
 		if(result > 0) {
 			int i = 0;
 			log_msg(received_message);
 		}
-		// delay to simulate as we are doing another tasks
-		for(int i = 0; i < 500000000; i++){}
 	    }
 	}
 	
@@ -43,7 +43,8 @@ int main() {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1; // Exit with an error code
     }
-
+    
+    close(serverSocket);
     return 0;
 }
 
@@ -53,6 +54,9 @@ void cleanupAndExit(int signal) {
     	receivers[i].cleanUpResources();
     	log_msg("1Trace: Logger: close message queue for application?");
     }
+    close(serverSocket);
+    log_msg("1Trace: Logger: close server socket?");
+    
     // Exit the program
     exit(0);
 }
@@ -86,4 +90,3 @@ int readConfigs(){
     // Close the file when done (this happens automatically when the stream goes out of scope)
     file.close();
 }
-

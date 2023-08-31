@@ -7,6 +7,7 @@ find_package(Boost REQUIRED COMPONENTS log log_setup date_time)
 add_subdirectory(${CMAKE_SOURCE_DIR}/../lib ${CMAKE_BINARY_DIR}/lib)
 
 add_library(LOGGERSlib ../inc/logger.h logger.cpp)
+add_library(SOCKETSlib ../inc/sockets.h sockets.cpp)
 target_include_directories(LOGGERSlib PUBLIC ${Boost_INCLUDE_DIRS})
 target_link_libraries(LOGGERSlib PUBLIC Boost::log_setup Boost::log Boost::date_time)
 
@@ -16,4 +17,4 @@ add_executable(logger
 )
 
 # Link the library to the executable
-target_link_libraries(logger MessageQueueLibrary LOGGERSlib)
+target_link_libraries(logger MessageQueueLibrary LOGGERSlib SOCKETSlib)
