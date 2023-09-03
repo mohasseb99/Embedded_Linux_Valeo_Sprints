@@ -3,7 +3,7 @@ Description=Background Logger
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/logger
+ExecStart=/usr/local/bin/build/bin/logger
 
 [Install]
 WantedBy=multi-user.target
