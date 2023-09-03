@@ -8,4 +8,4 @@ add_executable(maths
 )
 
 # Link the library to the executable
-target_link_libraries(maths MessageQueueLibrary)
+target_link_libraries(maths MessageQueueLibrary pthread rt)

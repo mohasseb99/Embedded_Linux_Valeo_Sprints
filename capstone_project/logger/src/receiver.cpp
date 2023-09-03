@@ -5,6 +5,7 @@
 #include "../inc/logger.h"
 #include <cstring>
 #include "../inc/sockets.h"
+#include <unistd.h>
 
 #define CONFIG_PATH "../../../logger_conf.txt"
 MessageQueueReceiver receivers[10];  // we make array of receviers as the maximum number of apps can logger deal with
